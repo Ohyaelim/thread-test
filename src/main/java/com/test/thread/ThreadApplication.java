@@ -73,25 +73,25 @@ public class ThreadApplication {
 
 	// index만큼 보내서 연결시키기
 	@GetMapping("/send")
-	public String sendHang(@RequestParam(value = "index") String index) {
-		// timeout 나면 안되니까 타임아웃 30분 지정
-		RestTemplate restTemplate = new RestTemplateBuilder()
-				.setConnectTimeout(Duration.ofDays(30 * 60 * 1000))
-				.setReadTimeout(Duration.ofDays(30 * 60 * 1000))
-				.build();
+    public String connectHang(@RequestParam(value = "index") String index) {
+        RestTemplate restTemplate = new RestTemplateBuilder()
+			.setConnectTimeout(Duration.ofMillis(20 * 60 * 1000)) // 20분
+            .setReadTimeout(Duration.ofMillis(20 * 60 * 1000)) // 20분
+            .build();
 
-		System.out.println("index: " + index);
+        System.out.println("index: " +index);
 
-		return restTemplate.getForObject("http://ec2-35-91-116-116.us-west-2.compute.amazonaws.com:8080/receive?index="+index, String.class);
-	}
+        return restTemplate.getForObject("http://35.91.116.116:8080/receive?index="+index, String.class);
+		// return restTemplate.getForObject("http://localhost:8080/receive?index="+index, String.class);
+    }
 
 	//받기
 	@GetMapping("/receive")
-	public String receiveHange(@RequestParam(value = "index") String index) throws InterruptedException {
-		System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))+" index: "+index);
-		Thread.sleep(12000000);
+    public String receiveHang(@RequestParam(value = "index") String index) throws InterruptedException {
+        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))+" index: "+index);
+        Thread.sleep(12000000); // 1200초 == 20분
 
-		return "receiveHang";
+        return "receiveHang";
 	}
 
 

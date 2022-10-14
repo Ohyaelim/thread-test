@@ -1,0 +1,4 @@
+server:
+  tomcat:
+    max-threads: 4000
+    max-connections: 4000
