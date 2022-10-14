@@ -21,15 +21,16 @@ public class ThreadMarker {
 
     }
 
-    // @Async
-    // public void hang(){
-    //     System.out.println("hang: " + Thread.currentThread());
+    // thread hang 걸기
+     @Async
+     public void hang(){
+         System.out.println("hang: " + Thread.currentThread());
 
-    //     try {
-    //         Thread.sleep(12000000); //1200초 == 20분
-    //     } catch (InterruptedException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+         try {
+             Thread.sleep(12000000); //1200초 == 20분
+         } catch (InterruptedException e) {
+             e.printStackTrace();
+         }
+     }
     
 }
